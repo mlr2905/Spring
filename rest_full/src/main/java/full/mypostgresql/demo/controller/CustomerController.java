@@ -50,8 +50,7 @@ public class CustomerController {
 
     @GetMapping(value = "/page")
     public String page() {
-        return "<h1>Hello!</h1>";
-    }
+        return "<html><body><h1>Hello!</h1></body></html>";}
 
     @PostMapping(value ="/insert")
     public ResponseEntity createUserPost(@RequestParam(defaultValue = "") String firstname,
