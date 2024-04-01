@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customer Form</title>
+</head>
+<body>
+<h2>Customer Registration Form</h2>
+<form action="/post_demo" method="POST">
+  <label for="firstname">First Name:</label><br>
+  <input type="text" id="firstname" name="firstname" required><br>
+
+  <label for="lastname">Last Name:</label><br>
+  <input type="text" id="lastname" name="lastname" required><br>
+
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br>
+
+  <label for="customer-type">Customer Type:</label><br>
+  <select id="customer-type" name="customer-type" required>
+    <option value="VIP">VIP</option>
+    <option value="Regular">Regular</option>
+  </select><br><br>
+
+  <button type="submit">Submit</button>
+</form>
+</body>
+</html>
