@@ -1,0 +1,117 @@
+package full.mypostgresql.demo.repository;
+
+import full.mypostgresql.demo.model.Customer;
+import full.mypostgresql.demo.model.CustomerMapper;
+import full.mypostgresql.demo.model.CustomerStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+
+
+   
+    
+    @Repository
+    public class YourRepository {
+    
+        private final JdbcTemplate jdbcTemplate;
+    
+        @Autowired
+        public YourRepository(JdbcTemplate jdbcTemplate) {
+            this.jdbcTemplate = jdbcTemplate;
+        }
+    
+        
+    public int addNewCountry(Country newCountry) {
+        try {
+            String sql = "INSERT INTO countries (column1, column2, ...) VALUES (?, ?, ...)";
+            return jdbcTemplate.update(sql, newCountry.getColumn1(), newCountry.getColumn2(), ...);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to add new country", e);
+        }
+    }
+
+    public Country getCountryById(int id) {
+        try {
+            String sql = "SELECT countries.*, continents.* FROM countries LEFT JOIN continents ON continents.id = countries.continent_id WHERE countries.id = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Country.class));
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to get country by id", e);
+        }
+    }
+
+    public Country getCountryByName(String name) {
+        try {
+            String sql = "SELECT * FROM countries WHERE country_name = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{name}, new BeanPropertyRowMapper<>(Country.class));
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to get country by name", e);
+        }
+    }
+        
+    public Country getCountryByName(String name) {
+        try {
+            String sql = "SELECT * FROM countries WHERE country_name = ?";
+            return jdbcTemplate.queryForObject(sql, new Object[]{name}, new BeanPropertyRowMapper<>(Country.class));
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to get country by name", e);
+        }
+    }
+
+    public int updateCountry(int id, Country updatedCountry) {
+        try {
+            String sql = "UPDATE countries SET column1 = ?, column2 = ... WHERE id = ?";
+            return jdbcTemplate.update(sql, updatedCountry.getColumn1(), updatedCountry.getColumn2(), ..., id);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to update country", e);
+        }
+    }
+
+    public int deleteCountry(int id) {
+        try {
+            String sql = "DELETE FROM countries WHERE id = ?";
+            return jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to delete country", e);
+        }
+    }
+
+    public List<Country> getAllCountries() {
+        try {
+            String sql = "SELECT * FROM get_all_countries()";
+            return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Country.class));
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to get all countries", e);
+        }
+    }
+
+    public int deleteAllCountries() {
+        try {
+            String sql = "DELETE FROM countries";
+            jdbcTemplate.update(sql);
+            sql = "ALTER SEQUENCE countries_id_seq RESTART WITH 1";
+            jdbcTemplate.update(sql);
+            return 1;
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to delete all countries", e);
+        }
+    }
+
+    public void setSequenceId(int id) {
+        try {
+            String sql = "ALTER SEQUENCE countries_id_seq RESTART WITH ?";
+            jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to set sequence id", e);
+        }
+    }
+} 
+    }
+   
+
+    
+
