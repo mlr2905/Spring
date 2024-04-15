@@ -49,11 +49,7 @@ public class DemoApplication {
 				"        NOT VALID\n" +
 				");"
 			);
-
-					userRepository.createUesr(new User(0, "tomer", "avivi",
-					"758547487@gmail.com",role_id: 1));
-
-
+			userRepository.createUser(new User(0, "tomer", "avivi", "758547487@gmail.com", 1));
 
 		};
 	}
