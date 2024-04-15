@@ -9,20 +9,20 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spring1.web1.demo.model.ClientFaultException;
-import spring1.web1.demo.model.Customer;
+import spring1.web1.demo.model.User;
 import spring1.web1.demo.model.TVMazeShowResponse;
-import spring1.web1.demo.repository.CustomerRepository;
-import spring1.web1.demo.services.CustomerService;
+import spring1.web1.demo.repository.UserRepository;
+import spring1.web1.demo.services.UserService;
 import spring1.web1.demo.services.UserServiceClient;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/customer")
-public class CustomerController {
+public class UserController {
 
     @Autowired
-    CustomerService customerService;
+    UserService userService;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -31,32 +31,32 @@ public class CustomerController {
     private UserServiceClient apiClient;
 
     @GetMapping
-    public List<Customer> get()
+    public List<User> get()
     {
-        return customerService.getAllCustomers();
+        return userService.getAllUsers();
     }
 
     @GetMapping(value ="/{id}")
     public ResponseEntity getById(@PathVariable Integer id)
     {
-        Customer result = customerService.getCustomerById(id);
+        User result = userService.getUserById(id);
         if (result != null ) {
-            return new ResponseEntity<Customer>(result, HttpStatus.OK);
+            return new ResponseEntity<User>(result, HttpStatus.OK);
         }
         return new ResponseEntity<String>("{ \"Warning\": \"not found customer with Id " + id + "\" }",
                 HttpStatus.NOT_FOUND);
     }
 
     @PostMapping()
-    public ResponseEntity post(@RequestBody Customer customer) throws JsonProcessingException, ClientFaultException {
+    public ResponseEntity post(@RequestBody User user) throws JsonProcessingException, ClientFaultException {
         try {
-            String json = objectMapper.writeValueAsString(customer);
+            String json = objectMapper.writeValueAsString(user);
             System.out.println(json);
-            Customer c = objectMapper.readValue(json, Customer.class);
+            User c = objectMapper.readValue(json, User.class);
             //throw new Ex1
             System.out.println(c);
-            Customer resultCustomer = customerService.createCustomer(customer);
-            return new ResponseEntity<Customer>(resultCustomer, HttpStatus.CREATED);
+            User resultUser = userService.createUser(user);
+            return new ResponseEntity<User>(resultUser, HttpStatus.CREATED);
         }
         catch (ClientFaultException e) {
             return new ResponseEntity<String>(String.format("{ Error: '%s' }", e.toString()), HttpStatus.BAD_REQUEST);
@@ -68,21 +68,21 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/{id}")
-    public Customer put(@PathVariable Integer id, @RequestBody Customer customer) {
-        customerService.updateCustomer(customer, id);
-        return customer;
+    public User put(@PathVariable Integer id, @RequestBody User user) {
+        userService.updateUser(user, id);
+        return user;
     }
 
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable Integer id)
     {
-        customerService.deleteCustomer(id);
+        userService.deleteUser(id);
     }
 
     @GetMapping(value = "/ids")
     public List<Integer> getIds()
     {
-        return customerService.getAllIds();
+        return userService.getAllIds();
     }
 
     @GetMapping(value = "/shows/{id}")
