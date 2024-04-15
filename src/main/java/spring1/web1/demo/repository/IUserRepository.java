@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUserRepository {
 
-    String createUesr(User user);
+    String createUser(User user);
 
     User createUserReturnId(User user) throws NamedAlreadyExistException, ClientFaultException;
 
