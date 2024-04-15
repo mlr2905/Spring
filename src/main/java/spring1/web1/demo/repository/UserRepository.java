@@ -29,7 +29,7 @@ public class UserRepository implements IUserRepository {
     ObjectMapper objectMapper;
 
     @Override
-    public String createUesr(User user) {
+    public String createUser(User user) {
        try {
            String query = String.format("INSERT INTO %s (username, password, email,role_id ) VALUES (?, ?, ?, ?)", USER_TABLE_NAME);
            jdbcTemplate.update(query, user.getUsername(), user.getPassword(),
