@@ -14,8 +14,7 @@ public class UserMapper implements RowMapper<User> {
                 rs.getString("username"),
                 rs.getString("password"),
                 rs.getString("email"),
-                rs.getString("role_id")
-
+                Integer.parseInt(Integer.parseInt.rs.getString("role_id"))
                );
     }
 
