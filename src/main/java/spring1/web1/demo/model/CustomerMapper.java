@@ -11,10 +11,10 @@ public class CustomerMapper implements RowMapper<Customer> {
     public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Customer(
                 rs.getInt("id"),
-                rs.getString("first_name"),
-                rs.getString("last_name"),
+                rs.getString("username"),
+                rs.getString("password"),
                 rs.getString("email"),
-                CustomerStatus.valueOf(rs.getString("status")));
+               rs.getString("role_id"));
     }
 
 }

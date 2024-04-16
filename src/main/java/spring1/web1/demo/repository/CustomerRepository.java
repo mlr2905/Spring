@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 public class CustomerRepository implements ICustomerRepository {
 
-    private static final String CUSTOMER_TABLE_NAME = "customer";
+    private static final String CUSTOMER_TABLE_NAME = "user";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -31,9 +31,9 @@ public class CustomerRepository implements ICustomerRepository {
     @Override
     public String createCustomer(Customer customer) {
        try {
-           String query = String.format("INSERT INTO %s (first_name, last_name, email, status) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
-           jdbcTemplate.update(query, customer.getFirstName(), customer.getLastName(),
-                   customer.getEmail(), customer.getStatus().name());
+           String query = String.format("INSERT INTO %s (first_name, last_name, email, role_id) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
+           jdbcTemplate.update(query, customer.getUsername(), customer.getPassword(),
+                   customer.getEmail(),customer.getRole_id() ;
            return null;
        }
        catch (Exception e) {
@@ -51,10 +51,10 @@ public class CustomerRepository implements ICustomerRepository {
             String queryNamedParam = String.format("INSERT INTO %s (first_name, last_name, email, status) VALUES (:first_name, :last_name, :email, :status)", CUSTOMER_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
-            params.put("first_name", customer.getFirstName());
-            params.put("last_name", customer.getLastName());
+            params.put("username", customer.getFirstName());
+            params.put("password", customer.getLastName());
             params.put("email", customer.getEmail());
-            params.put("status", customer.getStatus().name());
+            params.put("role_id", customer.getRole_id());
 
             MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
 

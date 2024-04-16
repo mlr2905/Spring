@@ -35,27 +35,21 @@ public class DemoApplication {
 		return args -> {
 			// SHOW --> ResponseEntity!!
 			jdbcTemplate.execute(
-					"DROP TABLE IF EXISTS customer_order cascade;\n" +
-							"DROP TABLE IF EXISTS customer cascade;\n" +
-					"CREATE TABLE customer ("+
-					"    id SERIAL PRIMARY KEY,\n" +
-					"    first_name varchar(255) NOT NULL default '',\n" +
-					"    last_name varchar(255) NOT NULL default '',\n" +
-					"    email varchar(255) NOT NULL default '',\n" +
-                    "    status varchar(255) NOT NULL default 'REGULAR');\n" +
-					"CREATE TABLE customer_order (" +
-					"    id SERIAL PRIMARY KEY,\n" +
-					"    customer_id int NOT NULL,\n" +
-					"    item_name varchar(255) NOT NULL default '',\n" +
-					"    price DECIMAL(100,2) NOT NULL default 0,\n" +
-					"    FOREIGN KEY (customer_id) REFERENCES customer(id));");
-
-			customerRepository.createCustomer(new Customer(0, "tomer", "avivi",
-					"tomeravivi@gmail.com", CustomerStatus.REGULAR));
-
-
-
-		};
+			  "CREATE TABLE IF NOT EXISTS customer (" +
+				"id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass)," +
+				"username character varying(60) COLLATE pg_catalog.\"default\" NOT NULL," +
+				"password character varying COLLATE pg_catalog.\"default\",  // Hash passwords before storing! " +
+				"email character varying(320) COLLATE pg_catalog.\"default\" NOT NULL," +
+				"role_id integer NOT NULL," +
+				"CONSTRAINT user_pkey PRIMARY KEY (id)," +
+				"CONSTRAINT user_emall_key UNIQUE (email) INCLUDE(email)," +
+				"CONSTRAINT user_username_key UNIQUE (username)," +
+				"CONSTRAINT role_id FOREIGN KEY (role_id) REFERENCES public.roles (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
+		  
+			// Hash the password before creating the customer
+			customerRepository.createCustomer(new Customer(0, "tomer", hashedPassword, "tomeravivi@gmail.com", 1));
+		  };
+		  
 	}
 
 }

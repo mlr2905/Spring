@@ -18,23 +18,23 @@ public class Customer {
     protected Integer id;
 
     @Getter@Setter
-    protected String firstName;
+    protected String username;
 
     @Getter@Setter
-    protected String lastName;
+    protected String password;
 
     @Getter@Setter
     protected String email;
 
     @Getter@Setter
-    protected CustomerStatus status;
+    protected  Integer role_id;
 
-    public Customer(Integer id, String firstName, String lastName, String email, CustomerStatus status) {
+    public Customer(Integer id, String firstName, String lastName, String email, Integer role_id) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.status = status;
+        this.role_id = role_id;
     }
 
     @Override
