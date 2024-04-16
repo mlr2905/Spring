@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 public class UserRepository implements IUserRepository {
 
-    private static final String USER_TABLE_NAME = "Registered_users";
+    private static final String USER_TABLE_NAME = "user";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
