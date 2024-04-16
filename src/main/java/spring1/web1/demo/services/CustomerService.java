@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import spring1.web1.demo.model.ClientFaultException;
 import spring1.web1.demo.model.Customer;
-import spring1.web1.demo.model.CustomerStatus;
 import spring1.web1.demo.model.ExceedVIPException;
 import spring1.web1.demo.repository.CacheRepositoryImpl;
 import spring1.web1.demo.repository.CustomerRepository;
@@ -35,15 +34,8 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer createCustomer(Customer customer) throws ClientFaultException {
 //        System.out.println(maxVIP);
-        if (customer.getStatus() == CustomerStatus.VIP &&
-                customerRepository.getCustomerByStatus(CustomerStatus.VIP).size() >= maxVIP)
-        {
-            throw new ExceedVIPException(String.format("Cannot create more VIP customers, for customer: %s %s.", customer.getLastName(), customer.getFirstName()));
-        }
-        // without id
-        //return customerRepository.createCustomer(customer);
-
-        // with id
+      
+       
         return customerRepository.createCustomerReturnId(customer);
     }
 
