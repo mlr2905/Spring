@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StreamUtils;
 import spring1.web1.demo.model.Customer;
-import spring1.web1.demo.model.CustomerStatus;
 import spring1.web1.demo.repository.CustomerRepository;
 import spring1.web1.demo.services.RedisDetailsConfig;
 

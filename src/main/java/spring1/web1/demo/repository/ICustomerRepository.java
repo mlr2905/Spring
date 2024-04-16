@@ -1,7 +1,6 @@
 package spring1.web1.demo.repository;
 import spring1.web1.demo.model.ClientFaultException;
 import spring1.web1.demo.model.Customer;
-import spring1.web1.demo.model.CustomerStatus;
 import spring1.web1.demo.model.NamedAlreadyExistException;
 
 import java.util.List;
