@@ -1,23 +1,23 @@
 package spring1.web1.demo.repository;
 import spring1.web1.demo.model.ClientFaultException;
-import spring1.web1.demo.model.User;
+import spring1.web1.demo.model.Registered_users;
 import spring1.web1.demo.model.NamedAlreadyExistException;
 
 import java.util.List;
 
 public interface IUserRepository {
 
-    String createUser(User user);
+    String createUser(Registered_users user);
 
-    User createUserReturnId(User user) throws NamedAlreadyExistException, ClientFaultException;
+    Registered_users createUserReturnId(Registered_users user) throws NamedAlreadyExistException, ClientFaultException;
 
-    void updateUser(User user, Integer id);
+    void updateUser(Registered_users user, Integer id);
 
     void deleteUser(Integer id);
 
-    List<User> getAllUsers();
+    List<Registered_users> getAllUsers();
 
-    User getUserById(Integer id);
+    Registered_users getUserById(Integer id);
 
     List<Integer> getAllIds();
 

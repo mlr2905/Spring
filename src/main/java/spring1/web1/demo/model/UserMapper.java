@@ -5,11 +5,11 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserMapper implements RowMapper<User> {
+public class UserMapper implements RowMapper<Registered_users> {
 
     @Override
-    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new User(
+    public Registered_users mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new Registered_users(
                 rs.getInt("id"),
                 rs.getString("username"),
                 rs.getString("password"),

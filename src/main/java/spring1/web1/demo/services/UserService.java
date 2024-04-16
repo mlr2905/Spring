@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import spring1.web1.demo.model.ClientFaultException;
-import spring1.web1.demo.model.User;
+import spring1.web1.demo.model.Registered_users;
 import spring1.web1.demo.model.ExceedVIPException;
 import spring1.web1.demo.repository.CacheRepositoryImpl;
 import spring1.web1.demo.repository.UserRepository;
@@ -32,7 +32,7 @@ public class UserService implements IUserService {
     private Boolean cache_on;
 
     @Override
-    public User createUser(User user) throws ClientFaultException {
+    public Registered_users createUser(Registered_users user) throws ClientFaultException {
 //        System.out.println(maxVIP);
         
         // without id
@@ -43,7 +43,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void updateUser(User user, Integer id) {
+    public void updateUser(Registered_users user, Integer id) {
         userRepository.updateUser(user, id);
     }
 
@@ -53,21 +53,21 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<Registered_users> getAllUsers() {
         return userRepository.getAllUsers();
     }
 
     @Override
-    public User getUserById(Integer id) {
+    public Registered_users getUserById(Integer id) {
         try {
 
             if (cache_on && cacheRepository.isKeyExist(String.valueOf(id))) {
                 String user = cacheRepository.getCacheEntity(String.valueOf(id));
                 System.out.println("reading from cache " + user);
-                return objectMapper.readValue(user, User.class);
+                return objectMapper.readValue(user, Registered_users.class);
             }
 
-            User result = userRepository.getUserById(id);
+            Registered_users result = userRepository.getUserById(id);
 
             if (cache_on) {
                 cacheRepository.createCacheEntity(String.valueOf(id), objectMapper.writeValueAsString(result));

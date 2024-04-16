@@ -17,7 +17,7 @@ import java.util.Map;
 @Repository
 public class UserRepository implements IUserRepository {
 
-    private static final String USER_TABLE_NAME = "user";
+    private static final String USER_TABLE_NAME = "Registered_users";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -29,7 +29,7 @@ public class UserRepository implements IUserRepository {
     ObjectMapper objectMapper;
 
     @Override
-    public String createUser(User user) {
+    public String createUser(Registered_users user) {
        try {
            String query = String.format("INSERT INTO %s (username, password, email,role_id ) VALUES (?, ?, ?, ?)", USER_TABLE_NAME);
            jdbcTemplate.update(query, user.getUsername(), user.getPassword(),
@@ -42,7 +42,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User createUserReturnId(User user) throws ClientFaultException {
+    public Registered_users createUserReturnId(Registered_users user) throws ClientFaultException {
         try {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -85,7 +85,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void updateUser(User user, Integer id) {
+    public void updateUser(Registered_users user, Integer id) {
         String query = String.format("UPDATE %s SET username=?, password=?, email=? role_id=?  WHERE id= ?", USER_TABLE_NAME);
         jdbcTemplate.update(query, user.getUsername(), user.getPassword(), user.getEmail(),user.getRole_id(), id);
     }
@@ -97,7 +97,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<Registered_users> getAllUsers() {
         String query = String.format("Select * from %s", USER_TABLE_NAME);
         return jdbcTemplate.query(query, new UserMapper());
 
@@ -116,7 +116,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User getUserById(Integer id) {
+    public Registered_users getUserById(Integer id) {
 
 
 

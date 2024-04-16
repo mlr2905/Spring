@@ -4,7 +4,7 @@ package spring1.web1.demo.model;
 import lombok.Getter;
 import lombok.Setter;
 
-public class User {
+public class Registered_users {
 
     @Getter@Setter
     protected Integer id;
@@ -22,7 +22,7 @@ public class User {
     protected Integer role_id;
     
  
-    public User(Integer id, String username, String password, String email, Integer role_id) {
+    public Registered_users(Integer id, String username, String password, String email, Integer role_id) {
         this.id = id;
         this.username = username;
         this.password = password;

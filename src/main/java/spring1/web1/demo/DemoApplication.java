@@ -9,7 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StreamUtils;
-import spring1.web1.demo.model.User;
+import spring1.web1.demo.model.Registered_users;
 import spring1.web1.demo.repository.UserRepository;
 import spring1.web1.demo.services.RedisDetailsConfig;
 
@@ -50,7 +50,7 @@ public class DemoApplication {
 			// 	");"
 				
 			// );
-			userRepository.createUser(new User(1, "tomer", "avivi", "758547487@gmail.com", 1));
+			userRepository.createUser(new Registered_users(1, "tomer", "avivi", "758547487@gmail.com", 1));
 
 		};
 	}
