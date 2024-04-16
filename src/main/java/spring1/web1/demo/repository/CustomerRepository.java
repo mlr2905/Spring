@@ -33,7 +33,7 @@ public class CustomerRepository implements ICustomerRepository {
        try {
            String query = String.format("INSERT INTO %s (first_name, last_name, email, role_id) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
            jdbcTemplate.update(query, customer.getUsername(), customer.getPassword(),
-                   customer.getEmail(),customer.getRole_id() ;
+                   customer.getEmail(),customer.getRole_id());
            return null;
        }
        catch (Exception e) {
