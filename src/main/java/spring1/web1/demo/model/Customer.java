@@ -44,6 +44,7 @@ public class Customer {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", role_id='" + role_id + '\'' +
                 '}';
     }
 }
