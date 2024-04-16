@@ -33,22 +33,23 @@ public class DemoApplication {
 	CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate, UserRepository userRepository) {
 		return args -> {
 			// SHOW --> ResponseEntity!!
-			jdbcTemplate.execute(
-				"CREATE TABLE IF NOT EXISTS \"user\" ("+
-				"    id SERIAL PRIMARY KEY,\n" +
-				"    username VARCHAR(60) NOT NULL DEFAULT '',\n" +
-				"    password VARCHAR(255) NOT NULL DEFAULT '',\n" +
-				"    email VARCHAR(320) NOT NULL DEFAULT '',\n" +
-				"    role_id INTEGER NOT NULL DEFAULT 'REGULAR',\n" +
-				"    CONSTRAINT users_email_key UNIQUE (email),\n" +
-				"    CONSTRAINT users_username_key UNIQUE (username),\n" +
-				"    CONSTRAINT role_id FOREIGN KEY (role_id)\n" +
-				"        REFERENCES public.roles (id) MATCH SIMPLE\n" +
-				"        ON UPDATE NO ACTION\n" +
-				"        ON DELETE NO ACTION\n" +
-				"        NOT VALID\n" +
-				");"
-			);
+			// jdbcTemplate.execute(
+			// 	"CREATE TABLE IF NOT EXISTS \"user\" ("+
+			// 	"    id SERIAL PRIMARY KEY,\n" +
+			// 	"    username VARCHAR(60) NOT NULL DEFAULT '',\n" +
+			// 	"    password VARCHAR(255) NOT NULL DEFAULT '',\n" +
+			// 	"    email VARCHAR(320) NOT NULL DEFAULT '',\n" +
+			// 	"    role_id INTEGER NOT NULL DEFAULT 'REGULAR',\n" +
+			// 	"    CONSTRAINT users_email_key UNIQUE (email),\n" +
+			// 	"    CONSTRAINT users_username_key UNIQUE (username),\n" +
+			// 	"    CONSTRAINT role_id FOREIGN KEY (role_id)\n" +
+			// 	"        REFERENCES public.roles (id) MATCH SIMPLE\n" +
+			// 	"        ON UPDATE NO ACTION\n" +
+			// 	"        ON DELETE NO ACTION\n" +
+			// 	"        NOT VALID\n" +
+			// 	");"
+				
+			// );
 			userRepository.createUser(new User(1, "tomer", "avivi", "758547487@gmail.com", 1));
 
 		};
