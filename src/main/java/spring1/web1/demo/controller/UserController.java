@@ -18,7 +18,7 @@ import spring1.web1.demo.services.UserServiceClient;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
