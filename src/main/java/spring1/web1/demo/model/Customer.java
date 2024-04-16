@@ -29,10 +29,10 @@ public class Customer {
     @Getter@Setter
     protected  Integer role_id;
 
-    public Customer(Integer id, String firstName, String lastName, String email, Integer role_id) {
+    public Customer(Integer id, String username, String password, String email, Integer role_id) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
         this.email = email;
         this.role_id = role_id;
     }
@@ -41,8 +41,8 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

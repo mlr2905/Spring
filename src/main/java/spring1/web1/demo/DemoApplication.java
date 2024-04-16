@@ -35,7 +35,7 @@ public class DemoApplication {
 		return args -> {
 			// SHOW --> ResponseEntity!!
 			jdbcTemplate.execute(
-			  "CREATE TABLE IF NOT EXISTS customer (" +
+			  "CREATE TABLE IF NOT EXISTS user (" +
 				"id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass)," +
 				"username character varying(60) COLLATE pg_catalog.\"default\" NOT NULL," +
 				"password character varying COLLATE pg_catalog.\"default\",  // Hash passwords before storing! " +
@@ -47,7 +47,7 @@ public class DemoApplication {
 				"CONSTRAINT role_id FOREIGN KEY (role_id) REFERENCES public.roles (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
 		  
 			// Hash the password before creating the customer
-			customerRepository.createCustomer(new Customer(0, "tomer", hashedPassword, "tomeravivi@gmail.com", 1));
+			customerRepository.createCustomer(new Customer(0, "tomer", "dhsjds", "tomeravivi@gmail.com", 1));
 		  };
 		  
 	}

@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS user (
     id integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
     username character varying(60) COLLATE pg_catalog."default" NOT NULL,
     password character varying COLLATE pg_catalog."default",
