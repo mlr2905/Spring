@@ -31,7 +31,7 @@ public class CustomerRepository implements ICustomerRepository {
     @Override
     public String createCustomer(Customer customer) {
        try {
-           String query = String.format("INSERT INTO %s (first_name, last_name, email, role_id) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
+           String query = String.format("INSERT INTO %s (username, password, email, role_id) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
            jdbcTemplate.update(query, customer.getUsername(), customer.getPassword(),
                    customer.getEmail(),customer.getRole_id());
            return null;
@@ -47,12 +47,12 @@ public class CustomerRepository implements ICustomerRepository {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-            String query = String.format("INSERT INTO %s (first_name, last_name, email, status) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (first_name, last_name, email, status) VALUES (:first_name, :last_name, :email, :status)", CUSTOMER_TABLE_NAME);
+            String query = String.format("INSERT INTO %s (username, password, email, status) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
+            String queryNamedParam = String.format("INSERT INTO %s (username, password, email, status) VALUES (:username, :password, :email, :status)", CUSTOMER_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
-            params.put("username", customer.getFirstName());
-            params.put("password", customer.getLastName());
+            params.put("username", customer.getUsername());
+            params.put("password", customer.getPassword());
             params.put("email", customer.getEmail());
             params.put("role_id", customer.getRole_id());
 
@@ -75,7 +75,7 @@ public class CustomerRepository implements ICustomerRepository {
             // "sql server is down" ... ? -- not client fault
 
             // "name already exist" -- client fault
-            throw new NamedAlreadyExistException(String.format("customer %s %s already exist" + customer.getLastName(), customer.getFirstName()));
+            throw new NamedAlreadyExistException(String.format("customer %s %s already exist" + customer.getPassword(), customer.getUsername()));
 
 
             // check if it was client error ? i.e. name already exist
@@ -87,8 +87,8 @@ public class CustomerRepository implements ICustomerRepository {
     @Override
     public void updateCustomer(Customer customer, Integer id) {
         String query = String.format("UPDATE %s SET first_name=?, last_name=?, email=? status = ? WHERE id= ?", CUSTOMER_TABLE_NAME);
-        jdbcTemplate.update(query, customer.getFirstName(), customer.getLastName(), customer.getEmail(),
-                customer.getStatus().name(), id);
+        jdbcTemplate.update(query, customer.getPassword(), customer.getUsername(), customer.getEmail(),
+                customer.getRole_id(), id);
     }
 
     @Override
@@ -150,16 +150,6 @@ public class CustomerRepository implements ICustomerRepository {
         return jdbcTemplate.queryForList(query, Integer.class);
     }
 
-    @Override
-    public List<Customer> getCustomerByStatus(CustomerStatus status) {
-        String query = String.format("Select * from %s where status like ?", CUSTOMER_TABLE_NAME);
-        try
-        {
-            return jdbcTemplate.query(query, new CustomerMapper(), status.name());
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
+  
 
 }

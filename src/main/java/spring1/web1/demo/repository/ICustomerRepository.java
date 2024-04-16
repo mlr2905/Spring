@@ -22,5 +22,4 @@ public interface ICustomerRepository {
 
     List<Integer> getAllIds();
 
-    List<Customer> getCustomerByStatus(CustomerStatus status);
 }
