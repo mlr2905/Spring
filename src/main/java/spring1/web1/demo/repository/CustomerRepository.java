@@ -31,7 +31,7 @@ public class CustomerRepository implements ICustomerRepository {
     @Override
     public String createCustomer(Customer customer) {
        try {
-           String query = String.format("INSERT INTO %s (username, password, email, role_id) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
+           String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
            jdbcTemplate.update(query, customer.getUsername(), customer.getPassword(),
                    customer.getEmail(),customer.getRole_id());
            return null;
@@ -47,10 +47,11 @@ public class CustomerRepository implements ICustomerRepository {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-            String query = String.format("INSERT INTO %s (username, password, email, status) VALUES (?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (username, password, email, status) VALUES (:username, :password, :email, :status)", CUSTOMER_TABLE_NAME);
+            String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
+            String queryNamedParam = String.format("INSERT INTO %s (id,username, password, email, status) VALUES (:id,:username, :password, :email,role_id )", CUSTOMER_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
+            params.put("id", customer.getId());
             params.put("username", customer.getUsername());
             params.put("password", customer.getPassword());
             params.put("email", customer.getEmail());
