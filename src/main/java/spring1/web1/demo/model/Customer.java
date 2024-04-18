@@ -13,10 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Customer {
-
-    @Getter@Setter
-    protected Integer id;
-
     @Getter@Setter
     protected String username;
 
@@ -29,8 +25,7 @@ public class Customer {
     @Getter@Setter
     protected  Integer role_id;
 
-    public Customer(Integer id, String username, String password, String email, Integer role_id) {
-        this.id = id;
+    public Customer( String username, String password, String email, Integer role_id) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -40,7 +35,6 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +

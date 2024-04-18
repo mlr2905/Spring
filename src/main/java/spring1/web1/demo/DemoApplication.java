@@ -46,7 +46,7 @@ public class DemoApplication {
 			// 	"CONSTRAINT role_id FOREIGN KEY (role_id) REFERENCES public.roles (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
 		  
 			// Hash the password before creating the customer
-			customerRepository.createCustomer(new Customer(0, "tomer", "dhsjds", "tomeravivi@gmail.com", 1));
+			customerRepository.createCustomer(new Customer( "tomer", "dhsjds", "tomeravivi@gmail.com", 1));
 		  };
 		  
 	}
