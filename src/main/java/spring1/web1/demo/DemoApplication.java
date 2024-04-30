@@ -9,8 +9,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StreamUtils;
-import spring1.web1.demo.model.Customer;
-import spring1.web1.demo.repository.CustomerRepository;
+import spring1.web1.demo.model.Client;
+import spring1.web1.demo.repository.ClientRepository;
 import spring1.web1.demo.services.RedisDetailsConfig;
 
 import java.nio.charset.StandardCharsets;
@@ -30,7 +30,7 @@ public class DemoApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate, CustomerRepository customerRepository) {
+	CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate, ClientRepository clientRepository) {
 		return args -> {
 			// SHOW --> ResponseEntity!!
 			// jdbcTemplate.execute(
@@ -45,8 +45,8 @@ public class DemoApplication {
 			// 	"CONSTRAINT user_username_key UNIQUE (username)," +
 			// 	"CONSTRAINT role_id FOREIGN KEY (role_id) REFERENCES public.roles (id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);");
 		  
-			// Hash the password before creating the customer
-			// customerRepository.createCustomer(new Customer(2,"tomer", "dhsjds", "tomeravivi@gmail.com", 1));
+			// Hash the password before creating the client
+			// clientRepository.createclient(new client(2,"tomer", "dhsjds", "tomeravivi@gmail.com", 1));
 		  };
 		  
 	}

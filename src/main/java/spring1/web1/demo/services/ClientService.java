@@ -6,18 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import spring1.web1.demo.model.ClientFaultException;
-import spring1.web1.demo.model.Customer;
-import spring1.web1.demo.model.ExceedVIPException;
+import spring1.web1.demo.model.Client;
 import spring1.web1.demo.repository.CacheRepositoryImpl;
-import spring1.web1.demo.repository.CustomerRepository;
+import spring1.web1.demo.repository.ClientRepository;
 
 import java.util.List;
 
 @Service
-public class CustomerService implements ICustomerService {
+public class ClientService implements IClientService {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private ClientRepository ClientRepository;
 
     @Autowired
     private CacheRepositoryImpl cacheRepository;
@@ -32,39 +31,39 @@ public class CustomerService implements ICustomerService {
     private Boolean cache_on;
 
     @Override
-    public Customer createCustomer(Customer customer) throws ClientFaultException {
+    public Client createClient(Client client) throws ClientFaultException {
 //        System.out.println(maxVIP);
       
        
-        return customerRepository.createCustomerReturnId(customer);
+        return ClientRepository.createClientReturnId(client);
     }
 
     @Override
-    public void updateCustomer(Customer customer, Integer id) {
-        customerRepository.updateCustomer(customer, id);
+    public void updateClient(Client client, Integer id) {
+        ClientRepository.updateClient(client, id);
     }
 
     @Override
-    public void deleteCustomer(Integer id) {
-        customerRepository.deleteCustomer(id);
+    public void deleteClient(Integer id) {
+        ClientRepository.deleteClient(id);
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        return customerRepository.getAllCustomers();
+    public List<Client> getAllClients() {
+        return ClientRepository.getAllClients();
     }
 
     @Override
-    public Customer getCustomerById(Integer id) {
+    public Client getClientById(Integer id) {
         try {
 
             if (cache_on && cacheRepository.isKeyExist(String.valueOf(id))) {
-                String customer = cacheRepository.getCacheEntity(String.valueOf(id));
-                System.out.println("reading from cache " + customer);
-                return objectMapper.readValue(customer, Customer.class);
+                String client = cacheRepository.getCacheEntity(String.valueOf(id));
+                System.out.println("reading from cache " + client);
+                return objectMapper.readValue(client, Client.class);
             }
 
-            Customer result = customerRepository.getCustomerById(id);
+            Client result = ClientRepository.getClientById(id);
 
             if (cache_on) {
                 cacheRepository.createCacheEntity(String.valueOf(id), objectMapper.writeValueAsString(result));
@@ -73,13 +72,13 @@ public class CustomerService implements ICustomerService {
 
         } catch (JsonProcessingException e) {
             System.out.println(e);
-            throw new IllegalStateException("cannot write json of customer");
+            throw new IllegalStateException("cannot write json of Client");
         }
     }
 
     @Override
     public List<Integer> getAllIds() {
-        return customerRepository.getAllIds();
+        return ClientRepository.getAllIds();
     }
 
 

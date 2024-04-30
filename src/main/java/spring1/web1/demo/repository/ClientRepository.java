@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class CustomerRepository implements ICustomerRepository {
+public class ClientRepository implements IClientRepository {
 
-    private static final String CUSTOMER_TABLE_NAME = "users";
+    private static final String CLIENTS_TABLE_NAME = "users";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -29,11 +29,11 @@ public class CustomerRepository implements ICustomerRepository {
     ObjectMapper objectMapper;
 
     @Override
-    public String createCustomer(Customer customer) {
+    public String createClient(Client client) {
        try {
-           String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
-           jdbcTemplate.update(query, customer.getUsername(), customer.getPassword(),
-                   customer.getEmail(),customer.getRole_id());
+           String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CLIENTS_TABLE_NAME);
+           jdbcTemplate.update(query, client.getUsername(), client.getPassword(),
+                   client.getEmail(),client.getRole_id());
            return null;
        }
        catch (Exception e) {
@@ -42,20 +42,20 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public Customer createCustomerReturnId(Customer customer) throws ClientFaultException {
+    public Client createClientReturnId(Client client) throws ClientFaultException {
         try {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-            String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CUSTOMER_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (id,username, password, email, status) VALUES (:id,:username, :password, :email,role_id )", CUSTOMER_TABLE_NAME);
+            String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CLIENTS_TABLE_NAME);
+            String queryNamedParam = String.format("INSERT INTO %s (id,username, password, email, status) VALUES (:id,:username, :password, :email,role_id )", CLIENTS_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
-            params.put("id", customer.getId());
-            params.put("username", customer.getUsername());
-            params.put("password", customer.getPassword());
-            params.put("email", customer.getEmail());
-            params.put("role_id", customer.getRole_id());
+            params.put("id", client.getId());
+            params.put("username", client.getUsername());
+            params.put("password", client.getPassword());
+            params.put("email", client.getEmail());
+            params.put("role_id", client.getRole_id());
 
             MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
 
@@ -65,18 +65,18 @@ public class CustomerRepository implements ICustomerRepository {
 
             Integer id = (Integer)generatedKeyHolder.getKeys().get("id");
 
-            customer.setId(id);
+            client.setId(id);
 
             System.out.println(id);
 
-            return customer;
+            return client;
         }
         catch (Exception e) {
             // investigate e.toString() ...
             // "sql server is down" ... ? -- not client fault
 
             // "name already exist" -- client fault
-            throw new NamedAlreadyExistException(String.format("customer %s %s already exist" + customer.getPassword(), customer.getUsername()));
+            throw new NamedAlreadyExistException(String.format("client %s %s already exist" + client.getPassword(), client.getUsername()));
 
 
             // check if it was client error ? i.e. name already exist
@@ -86,29 +86,29 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public void updateCustomer(Customer customer, Integer id) {
-        String query = String.format("UPDATE %s SET first_name=?, last_name=?, email=? status = ? WHERE id= ?", CUSTOMER_TABLE_NAME);
-        jdbcTemplate.update(query, customer.getPassword(), customer.getUsername(), customer.getEmail(),
-                customer.getRole_id(), id);
+    public void updateClient(Client client, Integer id) {
+        String query = String.format("UPDATE %s SET first_name=?, last_name=?, email=? status = ? WHERE id= ?", CLIENTS_TABLE_NAME);
+        jdbcTemplate.update(query, client.getPassword(), client.getUsername(), client.getEmail(),
+                client.getRole_id(), id);
     }
 
     @Override
-    public void deleteCustomer(Integer id) {
-        String query = String.format("DELETE FROM %s WHERE id= ?", CUSTOMER_TABLE_NAME);
+    public void deleteClient(Integer id) {
+        String query = String.format("DELETE FROM %s WHERE id= ?", CLIENTS_TABLE_NAME);
         jdbcTemplate.update(query, id);
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
-        String query = String.format("Select * from %s", CUSTOMER_TABLE_NAME);
-        return jdbcTemplate.query(query, new CustomerMapper());
+    public List<Client> getAllClients() {
+        String query = String.format("Select * from %s", CLIENTS_TABLE_NAME);
+        return jdbcTemplate.query(query, new ClientMapper());
 
         // inline mapper
         /*
         return jdbcTemplate.query(
                 query,
                 (rs, rowNum) ->
-                        new Customer(
+                        new Client(
                                 rs.getInt("id"),
                                 rs.getString("first_name"),
                                 rs.getString("last_name"),
@@ -118,14 +118,14 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public Customer getCustomerById(Integer id) {
+    public Client getClientById(Integer id) {
 
 
 
-        String query = String.format("Select * from %s where id=?", CUSTOMER_TABLE_NAME);
+        String query = String.format("Select * from %s where id=?", CLIENTS_TABLE_NAME);
         try
         {
-            return jdbcTemplate.queryForObject(query, new CustomerMapper(), id);
+            return jdbcTemplate.queryForObject(query, new ClientMapper(), id);
         }
         catch (EmptyResultDataAccessException e) {
             return null;
@@ -136,7 +136,7 @@ public class CustomerRepository implements ICustomerRepository {
         return jdbcTemplate.queryForObject(
                 query,
                 (rs, rowNum) ->
-                        new Customer(
+                        new Client(
                                 rs.getInt("id"),
                                 rs.getString("first_name"),
                                 rs.getString("last_name"),
@@ -147,7 +147,7 @@ public class CustomerRepository implements ICustomerRepository {
 
     @Override
     public List<Integer> getAllIds() {
-        String query = String.format("SELECT id FROM %s", CUSTOMER_TABLE_NAME);
+        String query = String.format("SELECT id FROM %s", CLIENTS_TABLE_NAME);
         return jdbcTemplate.queryForList(query, Integer.class);
     }
 

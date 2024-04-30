@@ -1,7 +1,7 @@
 package spring1.web1.demo.model;
 
 /*
-CREATE TABLE customer (
+CREATE TABLE Client (
     id int auto_increment,
     first_name varchar(255) NOT NULL default '',
     last_name varchar(255) NOT NULL default '',
@@ -12,7 +12,7 @@ CREATE TABLE customer (
 import lombok.Getter;
 import lombok.Setter;
 
-public class Customer {
+public class Client {
     @Getter@Setter
     protected  Integer id;
 
@@ -28,7 +28,7 @@ public class Customer {
     @Getter@Setter
     protected  Integer role_id;
 
-    public Customer(Integer id, String username, String password, String email, Integer role_id) {
+    public Client(Integer id, String username, String password, String email, Integer role_id) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -38,7 +38,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
+        return "Client{" +
                 ", id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
