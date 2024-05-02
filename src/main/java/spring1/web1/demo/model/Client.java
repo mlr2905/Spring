@@ -13,8 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Client {
-    @Getter@Setter
-    protected  Integer id;
+  
 
     @Getter@Setter
     protected String username;
