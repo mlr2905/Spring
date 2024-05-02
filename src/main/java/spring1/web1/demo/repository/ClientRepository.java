@@ -47,11 +47,10 @@ public class ClientRepository implements IClientRepository {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-            String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CLIENTS_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (:id,:username, :password, :email,role_id )", CLIENTS_TABLE_NAME);
+            String query = String.format("INSERT INTO %s (username, password, email, role_id) VALUES (?,?, ?, ?)", CLIENTS_TABLE_NAME);
+            String queryNamedParam = String.format("INSERT INTO %s (username, password, email, role_id) VALUES (:username, :password, :email,role_id )", CLIENTS_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
-            params.put("id", client.getId());
             params.put("username", client.getUsername());
             params.put("password", client.getPassword());
             params.put("email", client.getEmail());
@@ -62,12 +61,6 @@ public class ClientRepository implements IClientRepository {
             GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
             namedParameterJdbcTemplate.update(queryNamedParam, mapSqlParameterSource, generatedKeyHolder);
-
-            Integer id = (Integer)generatedKeyHolder.getKeys().get("id");
-
-            client.setId(id);
-
-            System.out.println(id);
 
             return client;
         }
