@@ -28,8 +28,7 @@ public class Client {
     @Getter@Setter
     protected  Integer role_id;
 
-    public Client(Integer id, String username, String password, String email, Integer role_id) {
-        this.id = id;
+    public Client( String username, String password, String email, Integer role_id) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -39,7 +38,6 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                ", id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
