@@ -48,7 +48,7 @@ public class ClientRepository implements IClientRepository {
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
             String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CLIENTS_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (id,username, password, email, status) VALUES (:id,:username, :password, :email,role_id )", CLIENTS_TABLE_NAME);
+            String queryNamedParam = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (:id,:username, :password, :email,role_id )", CLIENTS_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
             params.put("id", client.getId());
@@ -87,7 +87,7 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public void updateClient(Client client, Integer id) {
-        String query = String.format("UPDATE %s SET first_name=?, last_name=?, email=? status = ? WHERE id= ?", CLIENTS_TABLE_NAME);
+        String query = String.format("UPDATE %s SET username=?, password=?, email=? role_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
         jdbcTemplate.update(query, client.getPassword(), client.getUsername(), client.getEmail(),
                 client.getRole_id(), id);
     }
@@ -102,18 +102,6 @@ public class ClientRepository implements IClientRepository {
     public List<Client> getAllClients() {
         String query = String.format("Select * from %s", CLIENTS_TABLE_NAME);
         return jdbcTemplate.query(query, new ClientMapper());
-
-        // inline mapper
-        /*
-        return jdbcTemplate.query(
-                query,
-                (rs, rowNum) ->
-                        new Client(
-                                rs.getInt("id"),
-                                rs.getString("first_name"),
-                                rs.getString("last_name"),
-                                rs.getString("email")));
-         */
 
     }
 
@@ -131,18 +119,7 @@ public class ClientRepository implements IClientRepository {
             return null;
         }
 
-        // inline mapper
-        /*
-        return jdbcTemplate.queryForObject(
-                query,
-                (rs, rowNum) ->
-                        new Client(
-                                rs.getInt("id"),
-                                rs.getString("first_name"),
-                                rs.getString("last_name"),
-                                rs.getString("email")),
-                                id);
-         */
+   
     }
 
     @Override
