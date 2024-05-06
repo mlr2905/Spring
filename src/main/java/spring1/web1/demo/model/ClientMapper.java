@@ -12,7 +12,6 @@ public class ClientMapper implements RowMapper<Client> {
         return new Client(
                 rs.getInt("id"),
                 rs.getString("username"),
-                rs.getString("password"),
                 rs.getString("email"),
                 rs.getInt("role_id"));
     }

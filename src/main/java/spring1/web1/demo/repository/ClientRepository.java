@@ -31,8 +31,8 @@ public class ClientRepository implements IClientRepository {
     @Override
     public String createClient(Client client) {
        try {
-           String query = String.format("INSERT INTO %s (id,username, password, email, role_id) VALUES (?,?, ?, ?, ?)", CLIENTS_TABLE_NAME);
-           jdbcTemplate.update(query, client.getUsername(), client.getPassword(),
+           String query = String.format("INSERT INTO %s (id,username,  email, role_id) VALUES (?,?, ?, ?, ?)", CLIENTS_TABLE_NAME);
+           jdbcTemplate.update(query, client.getUsername(),
                    client.getEmail(),client.getRole_id());
            return null;
        }
@@ -47,13 +47,12 @@ public class ClientRepository implements IClientRepository {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-            String query = String.format("INSERT INTO %s (username, password, email, role_id) VALUES (?,?, ?, ?)", CLIENTS_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (username, password, email, role_id) VALUES (:username, :password, :email,role_id )", CLIENTS_TABLE_NAME);
+            String query = String.format("INSERT INTO %s (username,  email, role_id) VALUES (?,?, ?, ?)", CLIENTS_TABLE_NAME);
+            String queryNamedParam = String.format("INSERT INTO %s (username,  email, role_id) VALUES (:username, : :email,role_id )", CLIENTS_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
             params.put("id", client.getId());
             params.put("username", client.getUsername());
-            params.put("password", client.getPassword());
             params.put("email", client.getEmail());
             params.put("role_id", client.getRole_id());
 
@@ -76,7 +75,7 @@ public class ClientRepository implements IClientRepository {
             // "sql server is down" ... ? -- not client fault
 
             // "name already exist" -- client fault
-            throw new NamedAlreadyExistException(String.format("client %s %s already exist" + client.getPassword(), client.getUsername()));
+            throw new NamedAlreadyExistException(String.format("client %s %s already exist" +  client.getUsername()));
 
 
             // check if it was client error ? i.e. name already exist
@@ -87,8 +86,8 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public void updateClient(Client client, Integer id) {
-        String query = String.format("UPDATE %s SET username=?, password=?, email=? role_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
-        jdbcTemplate.update(query, client.getPassword(), client.getUsername(), client.getEmail(),
+        String query = String.format("UPDATE %s SET username=?, email=? role_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
+        jdbcTemplate.update(query,  client.getUsername(), client.getEmail(),
                 client.getRole_id(), id);
     }
 
