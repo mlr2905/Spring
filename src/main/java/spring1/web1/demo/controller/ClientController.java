@@ -13,7 +13,7 @@ import spring1.web1.demo.services.ClientService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/")
 public class ClientController {
 
     @Autowired
