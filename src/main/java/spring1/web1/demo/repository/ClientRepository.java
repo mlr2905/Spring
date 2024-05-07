@@ -47,11 +47,10 @@ public class ClientRepository implements IClientRepository {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-            String query = String.format("INSERT INTO %s (username,  email, role_id,mongo_id) VALUES (?,?, ?, ?,?)", CLIENTS_TABLE_NAME);
+            String query = String.format("INSERT INTO %s (username,  email, role_id,mongo_id) VALUES (?,?,?,?)", CLIENTS_TABLE_NAME);
             String queryNamedParam = String.format("INSERT INTO %s (username,  email, role_id,momgo_id) VALUES (:username, :email,:role_id ,:mongo_id)", CLIENTS_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
-            params.put("id", client.getId());
             params.put("username", client.getUsername());
             params.put("email", client.getEmail());
             params.put("role_id", client.getRole_id());
