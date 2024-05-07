@@ -44,14 +44,18 @@ public class ClientController {
     public ResponseEntity post(@RequestBody Client client) throws JsonProcessingException, ClientFaultException {
         try {
             String json = objectMapper.writeValueAsString(client);
-            System.out.println(json);
-            Client c = objectMapper.readValue(json, Client.class);
-            //throw new Ex1
-            System.out.println(c);
+            System.out.println(client);
+            System.out.println("client");
+
+           
             Client resultClient = clientService.createClient(client);
+            System.out.println("חח");
+
             return new ResponseEntity<Client>(resultClient, HttpStatus.CREATED);
         }
         catch (ClientFaultException e) {
+            System.out.println(e);
+
             return new ResponseEntity<String>(String.format("{ Error: '%s' }", e.toString()), HttpStatus.BAD_REQUEST);
         }
         catch (Exception e) {

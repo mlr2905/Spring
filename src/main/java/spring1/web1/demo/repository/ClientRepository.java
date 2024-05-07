@@ -28,66 +28,61 @@ public class ClientRepository implements IClientRepository {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Override
     public String createClient(Client client) {
-       try {
-           String query = String.format("INSERT INTO %s (id,username,  email, role_id,mongo_id) VALUES (?,?, ?, ?, ?,?)", CLIENTS_TABLE_NAME);
-           jdbcTemplate.update(query, client.getUsername(),
-                   client.getEmail(),client.getRole_id());
-           return null;
-       }
-       catch (Exception e) {
-           return "{\"Error\": \"" + e.toString() + "\" }";
-       }
-    }
+        System.out.println("בבבב");
 
-    @Override
-    public Client createClientReturnId(Client client) throws ClientFaultException {
         try {
 
-            NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-
-            String query = String.format("INSERT INTO %s (username,  email, role_id,mongo_id) VALUES (?,?,?,?)", CLIENTS_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (username,  email, role_id,momgo_id) VALUES (:username, :email,:role_id ,:mongo_id)", CLIENTS_TABLE_NAME);
-
-            Map<String, Object> params = new HashMap<>();
-            params.put("username", client.getUsername());
-            params.put("email", client.getEmail());
-            params.put("role_id", client.getRole_id());
-            params.put("mongo_id", client.getMongo_id());
 
 
-            MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
+            String query = "INSERT INTO " + CLIENTS_TABLE_NAME + " (username, email, role_id, mongo_id) VALUES (?, ?, ?, ?)";
+            jdbcTemplate.update(query, client.getUsername(), client.getEmail(), client.getRole_id(), client.getMongo_id());
+            System.out.println("Client created successfully.");
 
-            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+            // הוספתי הודעת הצלחה למקרה שבו הפעולה מתבצעת בהצלחה
+            return "Client created successfully.";
+        } catch (Exception e) {
+            System.out.println(e);
 
-            namedParameterJdbcTemplate.update(queryNamedParam, mapSqlParameterSource, generatedKeyHolder);
-
-            Integer id = (Integer)generatedKeyHolder.getKeys().get("id");
-
-            client.setId(id);
-
-            System.out.println(id);
-
-            return client;
-        }
-        catch (Exception e) {
-            // investigate e.toString() ...
-            // "sql server is down" ... ? -- not client fault
-
-            // "name already exist" -- client fault
-            throw new NamedAlreadyExistException(String.format("client %s %s already exist" +  client.getUsername()));
-
-
-            // check if it was client error ? i.e. name already exist
-            // if client error ...
-
+            // החזרת הודעת שגיאה במקרה של חריגה
+            return "{\"Error\": \"" + e.toString() + "\" }";
         }
     }
+    
+
+    @Override
+public Client createClientReturnId(Client client) throws ClientFaultException {
+    try {
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+
+        String queryNamedParam = String.format("INSERT INTO %s (username, email, role_id, mongo_id) VALUES (:username, :email, :role_id, :mongo_id)", CLIENTS_TABLE_NAME);
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("username", client.getUsername());
+        params.put("email", client.getEmail());
+        params.put("role_id", client.getRole_id());
+        params.put("mongo_id", client.getMongo_id());
+
+        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
+
+        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+
+        namedParameterJdbcTemplate.update(queryNamedParam, mapSqlParameterSource, generatedKeyHolder);
+
+        Integer id = (Integer) generatedKeyHolder.getKeys().get("id");
+        System.out.println(id);
+
+        return client;
+    } catch (Exception e) {
+        // כל שגיאה אחרת נלכלך לכאן
+        throw new ClientFaultException("An error occurred while creating the client");
+    }
+}
+
 
     @Override
     public void updateClient(Client client, Integer id) {
-        String query = String.format("UPDATE %s SET username=?, email=? role_id = ? ,mongo_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
+        String query = String.format("UPDATE %s SET username=?, email=? role_id = %d ,mongo_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
         jdbcTemplate.update(query,  client.getUsername(), client.getEmail(),
                 client.getRole_id(), id);
     }
