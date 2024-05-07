@@ -24,12 +24,16 @@ public class Client {
 
     @Getter@Setter
     protected  Integer role_id;
+    
+    @Getter@Setter
+    protected  String mongo_id;
 
-    public Client(Integer id, String username, String email, Integer role_id) {
+    public Client(Integer id, String username, String email, Integer role_id,String mongo_id) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.role_id = role_id;
+        this.mongo_id = mongo_id;
     }
 
     @Override
@@ -39,6 +43,8 @@ public class Client {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", role_id='" + role_id + '\'' +
+                ", mongo_id='" + mongo_id + '\'' +
+
                 '}';
     }
 }

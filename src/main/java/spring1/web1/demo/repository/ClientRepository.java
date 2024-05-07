@@ -31,7 +31,7 @@ public class ClientRepository implements IClientRepository {
     @Override
     public String createClient(Client client) {
        try {
-           String query = String.format("INSERT INTO %s (id,username,  email, role_id) VALUES (?,?, ?, ?, ?)", CLIENTS_TABLE_NAME);
+           String query = String.format("INSERT INTO %s (id,username,  email, role_id,mongo_id) VALUES (?,?, ?, ?, ?,?)", CLIENTS_TABLE_NAME);
            jdbcTemplate.update(query, client.getUsername(),
                    client.getEmail(),client.getRole_id());
            return null;
@@ -47,14 +47,16 @@ public class ClientRepository implements IClientRepository {
 
             NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-            String query = String.format("INSERT INTO %s (username,  email, role_id) VALUES (?,?, ?, ?)", CLIENTS_TABLE_NAME);
-            String queryNamedParam = String.format("INSERT INTO %s (username,  email, role_id) VALUES (:username, : :email,role_id )", CLIENTS_TABLE_NAME);
+            String query = String.format("INSERT INTO %s (username,  email, role_id,mongo_id) VALUES (?,?, ?, ?,?)", CLIENTS_TABLE_NAME);
+            String queryNamedParam = String.format("INSERT INTO %s (username,  email, role_id,momgo_id) VALUES (:username, :email,:role_id ,:mongo_id)", CLIENTS_TABLE_NAME);
 
             Map<String, Object> params = new HashMap<>();
             params.put("id", client.getId());
             params.put("username", client.getUsername());
             params.put("email", client.getEmail());
             params.put("role_id", client.getRole_id());
+            params.put("mongo_id", client.getMongo_id());
+
 
             MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
 
@@ -86,7 +88,7 @@ public class ClientRepository implements IClientRepository {
 
     @Override
     public void updateClient(Client client, Integer id) {
-        String query = String.format("UPDATE %s SET username=?, email=? role_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
+        String query = String.format("UPDATE %s SET username=?, email=? role_id = ? ,mongo_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
         jdbcTemplate.update(query,  client.getUsername(), client.getEmail(),
                 client.getRole_id(), id);
     }

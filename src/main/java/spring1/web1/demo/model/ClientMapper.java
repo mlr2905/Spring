@@ -13,7 +13,10 @@ public class ClientMapper implements RowMapper<Client> {
                 rs.getInt("id"),
                 rs.getString("username"),
                 rs.getString("email"),
-                rs.getInt("role_id"));
+                rs.getInt("role_id"), 
+                rs.getString("mongo_id")
+        );
+
     }
 
 }
