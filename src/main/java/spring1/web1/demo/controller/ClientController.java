@@ -28,8 +28,8 @@ public class ClientController {
     {
         return clientService.getAllClients();
     }
-    @GetMapping(value ="/search/{email}")
-    public ResponseEntity getByEmail(@PathVariable String email) {
+    @GetMapping(value ="/search")
+    public ResponseEntity getByEmail(@RequestParam("email") String email) {
         Client result = clientService.getClientByEmail(email);
         if (result != null) {
             return new ResponseEntity<Client>(result, HttpStatus.OK);
