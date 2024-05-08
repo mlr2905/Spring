@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IClientService {
 
-    Client createClient(Client client) throws ClientFaultException;
+    String createClient(Client client) throws ClientFaultException;
 
     void updateClient(Client client, Integer id);
 
@@ -16,7 +16,5 @@ public interface IClientService {
 
     Client getClientById(Integer id);
 
-    Client getClientByEmail(String email);
-    
     List<Integer> getAllIds();
 }

@@ -32,8 +32,9 @@ public class ClientService implements IClientService {
 
     @Override
     public Client createClient(Client client) throws ClientFaultException {
-        // System.out.println(maxVIP);
-
+//        System.out.println(maxVIP);
+      
+       
         return ClientRepository.createClientReturnId(client);
     }
 
@@ -76,15 +77,9 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public Client getClientByEmail(String email) {
-        
-        return ClientRepository.getClientByEmail(email);
-
-    }
-
-    @Override
     public List<Integer> getAllIds() {
         return ClientRepository.getAllIds();
     }
+
 
 }
