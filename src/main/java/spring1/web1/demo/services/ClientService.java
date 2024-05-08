@@ -75,7 +75,28 @@ public class ClientService implements IClientService {
             throw new IllegalStateException("cannot write json of Client");
         }
     }
-
+    @Override
+    public Client getClientByEmail(String email) {
+        try {
+            if (cache_on && cacheRepository.isKeyExist(email)) {
+                String client = cacheRepository.getCacheEntity(email);
+                System.out.println("Reading from cache: " + client);
+                return objectMapper.readValue(client, Client.class);
+            }
+    
+            Client result = ClientRepository.getClientByEmail(email);
+    
+            if (cache_on) {
+                cacheRepository.createCacheEntity(email, objectMapper.writeValueAsString(result));
+            }
+            return result;
+    
+        } catch (JsonProcessingException e) {
+            System.out.println(e);
+            throw new IllegalStateException("Cannot write JSON of Client");
+        }
+    }
+    
     @Override
     public List<Integer> getAllIds() {
         return ClientRepository.getAllIds();

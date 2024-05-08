@@ -1,4 +1,5 @@
 package spring1.web1.demo.repository;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,10 +34,10 @@ public class ClientRepository implements IClientRepository {
 
         try {
 
-
-
-            String query = "INSERT INTO " + CLIENTS_TABLE_NAME + " (username, email, role_id, mongo_id) VALUES (?, ?, ?, ?)";
-            jdbcTemplate.update(query, client.getUsername(), client.getEmail(), client.getRole_id(), client.getMongo_id());
+            String query = "INSERT INTO " + CLIENTS_TABLE_NAME
+                    + " (username, email, role_id, mongo_id) VALUES (?, ?, ?, ?)";
+            jdbcTemplate.update(query, client.getUsername(), client.getEmail(), client.getRole_id(),
+                    client.getMongo_id());
             System.out.println("Client created successfully.");
 
             // הוספתי הודעת הצלחה למקרה שבו הפעולה מתבצעת בהצלחה
@@ -48,42 +49,43 @@ public class ClientRepository implements IClientRepository {
             return "{\"Error\": \"" + e.toString() + "\" }";
         }
     }
-    
 
     @Override
-public Client createClientReturnId(Client client) throws ClientFaultException {
-    try {
-        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    public Client createClientReturnId(Client client) throws ClientFaultException {
+        try {
+            NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
 
-        String queryNamedParam = String.format("INSERT INTO %s (username, email, role_id, mongo_id) VALUES (:username, :email, :role_id, :mongo_id)", CLIENTS_TABLE_NAME);
+            String queryNamedParam = String.format(
+                    "INSERT INTO %s (username, email, role_id, mongo_id) VALUES (:username, :email, :role_id, :mongo_id)",
+                    CLIENTS_TABLE_NAME);
 
-        Map<String, Object> params = new HashMap<>();
-        params.put("username", client.getUsername());
-        params.put("email", client.getEmail());
-        params.put("role_id", client.getRole_id());
-        params.put("mongo_id", client.getMongo_id());
+            Map<String, Object> params = new HashMap<>();
+            params.put("username", client.getUsername());
+            params.put("email", client.getEmail());
+            params.put("role_id", client.getRole_id());
+            params.put("mongo_id", client.getMongo_id());
 
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
+            MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
 
-        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
+            GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(queryNamedParam, mapSqlParameterSource, generatedKeyHolder);
+            namedParameterJdbcTemplate.update(queryNamedParam, mapSqlParameterSource, generatedKeyHolder);
 
-        Integer id = (Integer) generatedKeyHolder.getKeys().get("id");
-        System.out.println(id);
+            Integer id = (Integer) generatedKeyHolder.getKeys().get("id");
+            System.out.println(id);
 
-        return client;
-    } catch (Exception e) {
-        // כל שגיאה אחרת נלכלך לכאן
-        throw new ClientFaultException("An error occurred while creating the client");
+            return client;
+        } catch (Exception e) {
+            // כל שגיאה אחרת נלכלך לכאן
+            throw new ClientFaultException("An error occurred while creating the client");
+        }
     }
-}
-
 
     @Override
     public void updateClient(Client client, Integer id) {
-        String query = String.format("UPDATE %s SET username=?, email=? role_id = %d ,mongo_id = ? WHERE id= ?", CLIENTS_TABLE_NAME);
-        jdbcTemplate.update(query,  client.getUsername(), client.getEmail(),
+        String query = String.format("UPDATE %s SET username=?, email=? role_id = %d ,mongo_id = ? WHERE id= ?",
+                CLIENTS_TABLE_NAME);
+        jdbcTemplate.update(query, client.getUsername(), client.getEmail(),
                 client.getRole_id(), id);
     }
 
@@ -103,18 +105,24 @@ public Client createClientReturnId(Client client) throws ClientFaultException {
     @Override
     public Client getClientById(Integer id) {
 
-
-
         String query = String.format("Select * from %s where id=?", CLIENTS_TABLE_NAME);
-        try
-        {
+        try {
             return jdbcTemplate.queryForObject(query, new ClientMapper(), id);
-        }
-        catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
 
-   
+    }
+
+    @Override
+
+    public Client getClientByEmail(String email) {
+        String query = "SELECT * FROM " + CLIENTS_TABLE_NAME + " WHERE email = ?";
+        try {
+            return jdbcTemplate.queryForObject(query, new ClientMapper(), email);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -122,7 +130,5 @@ public Client createClientReturnId(Client client) throws ClientFaultException {
         String query = String.format("SELECT id FROM %s", CLIENTS_TABLE_NAME);
         return jdbcTemplate.queryForList(query, Integer.class);
     }
-
-  
 
 }

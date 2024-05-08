@@ -18,7 +18,9 @@ public interface IClientRepository {
     List<Client> getAllClients();
 
     Client getClientById(Integer id);
-
+    
+    Client getClientByEmail(String email);
+  
     List<Integer> getAllIds();
 
 }

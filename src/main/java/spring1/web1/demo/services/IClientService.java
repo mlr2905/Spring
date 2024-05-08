@@ -16,5 +16,7 @@ public interface IClientService {
 
     Client getClientById(Integer id);
 
+    Client getClientByEmail(String email);
+    
     List<Integer> getAllIds();
 }
