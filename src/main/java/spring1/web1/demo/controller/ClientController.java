@@ -28,7 +28,7 @@ public class ClientController {
     {
         return clientService.getAllClients();
     }
-    @GetMapping(value ="/search")
+    @GetMapping(value ="/search/{id}")
     public ResponseEntity getByEmail(@RequestParam("email") String email) {
         Client result = clientService.getClientByEmail(email);
         if (result != null) {

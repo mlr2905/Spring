@@ -32,9 +32,8 @@ public class ClientService implements IClientService {
 
     @Override
     public Client createClient(Client client) throws ClientFaultException {
-//        System.out.println(maxVIP);
-      
-       
+        // System.out.println(maxVIP);
+
         return ClientRepository.createClientReturnId(client);
     }
 
@@ -75,32 +74,17 @@ public class ClientService implements IClientService {
             throw new IllegalStateException("cannot write json of Client");
         }
     }
+
     @Override
     public Client getClientByEmail(String email) {
-        try {
-            if (cache_on && cacheRepository.isKeyExist(email)) {
-                String client = cacheRepository.getCacheEntity(email);
-                System.out.println("Reading from cache: " + client);
-                return objectMapper.readValue(client, Client.class);
-            }
-    
-            Client result = ClientRepository.getClientByEmail(email);
-    
-            if (cache_on) {
-                cacheRepository.createCacheEntity(email, objectMapper.writeValueAsString(result));
-            }
-            return result;
-    
-        } catch (JsonProcessingException e) {
-            System.out.println(e);
-            throw new IllegalStateException("Cannot write JSON of Client");
-        }
+        
+        return ClientRepository.getClientByEmail(email);
+
     }
-    
+
     @Override
     public List<Integer> getAllIds() {
         return ClientRepository.getAllIds();
     }
-
 
 }

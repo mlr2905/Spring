@@ -113,17 +113,19 @@ public class ClientRepository implements IClientRepository {
         }
 
     }
-
     @Override
-
     public Client getClientByEmail(String email) {
-        String query = "SELECT * FROM " + CLIENTS_TABLE_NAME + " WHERE email = ?";
+
+        String query = String.format("Select * from %s where id=?", CLIENTS_TABLE_NAME);
         try {
             return jdbcTemplate.queryForObject(query, new ClientMapper(), email);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+
     }
+
+    
 
     @Override
     public List<Integer> getAllIds() {
