@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IClientService {
 
-    String createClient(Client client) throws ClientFaultException;
+    Client createClient(Client client) throws ClientFaultException;
 
     void updateClient(Client client, Integer id);
 

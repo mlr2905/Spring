@@ -49,7 +49,6 @@ public class ClientController {
 
            
             Client resultClient = clientService.createClient(client);
-            System.out.println("חח");
 
             return new ResponseEntity<Client>(resultClient, HttpStatus.CREATED);
         }

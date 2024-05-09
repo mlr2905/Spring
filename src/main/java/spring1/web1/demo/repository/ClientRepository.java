@@ -29,11 +29,8 @@ public class ClientRepository implements IClientRepository {
     ObjectMapper objectMapper;
 
     public String createClient(Client client) {
-        System.out.println("בבבב");
 
         try {
-
-
 
             String query = "INSERT INTO " + CLIENTS_TABLE_NAME + " (username, email, role_id, mongo_id) VALUES (?, ?, ?, ?)";
             jdbcTemplate.update(query, client.getUsername(), client.getEmail(), client.getRole_id(), client.getMongo_id());
