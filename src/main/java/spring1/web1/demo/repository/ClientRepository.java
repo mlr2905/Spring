@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import spring1.web1.demo.model.*;
 
@@ -46,35 +47,32 @@ public class ClientRepository implements IClientRepository {
         }
     }
     
+ 
 
     @Override
-public Client createClientReturnId(Client client) throws ClientFaultException {
-    try {
-        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-
-        String queryNamedParam = String.format("INSERT INTO %s (username, email, role_id, mongo_id) VALUES (:username, :email, :role_id, :mongo_id)", CLIENTS_TABLE_NAME);
-
-        Map<String, Object> params = new HashMap<>();
-        params.put("username", client.getUsername());
-        params.put("email", client.getEmail());
-        params.put("role_id", client.getRole_id());
-        params.put("mongo_id", client.getMongo_id());
-
-        MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
-
-        GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-
-        namedParameterJdbcTemplate.update(queryNamedParam, mapSqlParameterSource, generatedKeyHolder);
-
-        Integer id = (Integer) generatedKeyHolder.getKeys().get("id");
-        System.out.println(id);
-
-        return client;
-    } catch (Exception e) {
-        // כל שגיאה אחרת נלכלך לכאן
-        throw new ClientFaultException("An error occurred while creating the client");
-    }
-}
+    public Client createClientReturnId(Client client) throws ClientFaultException {
+        
+            NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    
+            String queryNamedParam = String.format("INSERT INTO %s (username, email, role_id, mongo_id) VALUES (:username, :email, :role_id, :mongo_id)", CLIENTS_TABLE_NAME);
+    
+            Map<String, Object> params = new HashMap<>();
+            params.put("username", client.getUsername());
+            params.put("email", client.getEmail());
+            params.put("role_id", client.getRole_id());
+            params.put("mongo_id", client.getMongo_id());
+    
+            MapSqlParameterSource mapSqlParameterSource = new MapSqlParameterSource(params);
+    
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+    
+            namedParameterJdbcTemplate.update(queryNamedParam, mapSqlParameterSource, keyHolder, new String[] {"id"});
+    
+            Integer id = keyHolder.getKey().intValue();
+            System.out.println(id);
+            client.setId(id);
+            return client;
+        }
 
 
     @Override
