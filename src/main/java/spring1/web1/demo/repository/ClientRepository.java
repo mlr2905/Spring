@@ -47,8 +47,6 @@ public class ClientRepository implements IClientRepository {
         }
     }
     
- 
-
     @Override
     public Client createClientReturnId(Client client) throws ClientFaultException {
         

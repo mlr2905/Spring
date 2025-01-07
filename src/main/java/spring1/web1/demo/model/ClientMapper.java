@@ -1,7 +1,6 @@
 package spring1.web1.demo.model;
 
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -18,5 +17,4 @@ public class ClientMapper implements RowMapper<Client> {
         );
 
     }
-
 }
