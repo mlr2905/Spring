@@ -1,4 +1,5 @@
 package spring1.web1.demo.repository;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,7 +10,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import spring1.web1.demo.model.*;
-
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
@@ -106,17 +106,11 @@ public class ClientRepository implements IClientRepository {
         catch (EmptyResultDataAccessException e) {
             return null;
         }
-
-   
     }
     
-
     @Override
     public List<Integer> getAllIds() {
         String query = String.format("SELECT id FROM %s", CLIENTS_TABLE_NAME);
         return jdbcTemplate.queryForList(query, Integer.class);
     }
-
-  
-
 }

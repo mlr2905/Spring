@@ -1,7 +1,5 @@
 package spring1.web1.demo.repository;
 
-
-
 public interface ICacheRepository {
 
     void createCacheEntity(String key, String value);

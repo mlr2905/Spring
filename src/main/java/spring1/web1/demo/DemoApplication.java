@@ -29,7 +29,5 @@ public class DemoApplication {
 	CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate, ClientRepository clientRepository) {
 		return args -> {
 			 };
-		  
 	}
-
 }

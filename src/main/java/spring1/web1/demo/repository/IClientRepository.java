@@ -2,7 +2,6 @@ package spring1.web1.demo.repository;
 import spring1.web1.demo.model.ClientFaultException;
 import spring1.web1.demo.model.Client;
 import spring1.web1.demo.model.NamedAlreadyExistException;
-
 import java.util.List;
 
 public interface IClientRepository {
@@ -19,7 +18,5 @@ public interface IClientRepository {
 
     Client getClientById(Integer id);
     
-  
     List<Integer> getAllIds();
-
 }

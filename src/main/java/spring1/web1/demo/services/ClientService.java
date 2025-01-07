@@ -9,7 +9,6 @@ import spring1.web1.demo.model.ClientFaultException;
 import spring1.web1.demo.model.Client;
 import spring1.web1.demo.repository.CacheRepositoryImpl;
 import spring1.web1.demo.repository.ClientRepository;
-
 import java.util.List;
 
 @Service
@@ -33,7 +32,6 @@ public class ClientService implements IClientService {
     @Override
     public Client createClient(Client client) throws ClientFaultException {
 //        System.out.println(maxVIP);
-      
        
         return ClientRepository.createClientReturnId(client);
     }
@@ -80,6 +78,4 @@ public class ClientService implements IClientService {
     public List<Integer> getAllIds() {
         return ClientRepository.getAllIds();
     }
-
-
 }
