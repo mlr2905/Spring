@@ -2,7 +2,6 @@ package spring1.web1.demo.services;
 
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.bind.ConstructorBinding;
 
 //@ConstructorBinding
 @ConfigurationProperties("redis")

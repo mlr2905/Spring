@@ -8,12 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.util.StreamUtils;
-import spring1.web1.demo.model.Client;
 import spring1.web1.demo.repository.ClientRepository;
 import spring1.web1.demo.services.RedisDetailsConfig;
-
-import java.nio.charset.StandardCharsets;
 
 @SpringBootApplication
 @EnableFeignClients

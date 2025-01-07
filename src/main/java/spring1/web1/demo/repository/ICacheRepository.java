@@ -1,8 +1,6 @@
 package spring1.web1.demo.repository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import redis.clients.jedis.JedisPooled;
-import spring1.web1.demo.services.RedisDetailsConfig;
+
 
 public interface ICacheRepository {
 
