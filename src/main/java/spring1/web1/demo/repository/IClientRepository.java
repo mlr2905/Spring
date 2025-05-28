@@ -1,9 +1,8 @@
-package spring.web.api.repository;
+package spring1.web1.demo.repository;
+import spring1.web1.demo.model.ClientFaultException;
+import spring1.web1.demo.model.Client;
+import spring1.web1.demo.model.NamedAlreadyExistException;
 import java.util.List;
-
-import spring.web.api.model.Client;
-import spring.web.api.model.ClientFaultException;
-import spring.web.api.model.NamedAlreadyExistException;
 
 public interface IClientRepository {
 

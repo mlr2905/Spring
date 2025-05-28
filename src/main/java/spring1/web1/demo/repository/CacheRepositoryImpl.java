@@ -1,9 +1,10 @@
-package spring.web.api.repository;
+package spring1.web1.demo.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import redis.clients.jedis.JedisPooled;
 import spring.web.api.service.RedisDetailsConfig;
+import spring1.web1.demo.services.RedisDetailsConfig;
 
 @Repository
 public class CacheRepositoryImpl implements ICacheRepository {

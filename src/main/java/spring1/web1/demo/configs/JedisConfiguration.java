@@ -1,4 +1,4 @@
-package spring.web.api.config;
+package spring1.web1.demo.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
