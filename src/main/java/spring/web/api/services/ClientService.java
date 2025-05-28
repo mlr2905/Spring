@@ -1,14 +1,17 @@
-package spring1.web1.demo.services;
+package spring.web.api.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import spring.web.api.model.Client;
+import spring.web.api.model.ClientFaultException;
+import spring.web.api.repository.CacheRepositoryImpl;
+import spring.web.api.repository.ClientRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import spring1.web1.demo.model.ClientFaultException;
-import spring1.web1.demo.model.Client;
-import spring1.web1.demo.repository.CacheRepositoryImpl;
-import spring1.web1.demo.repository.ClientRepository;
+
 import java.util.List;
 
 @Service

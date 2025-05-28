@@ -1,8 +1,9 @@
-package spring1.web1.demo.services;
+package spring.web.api.services;
 
-import spring1.web1.demo.model.ClientFaultException;
-import spring1.web1.demo.model.Client;
 import java.util.List;
+
+import spring.web.api.model.Client;
+import spring.web.api.model.ClientFaultException;
 
 public interface IClientService {
 

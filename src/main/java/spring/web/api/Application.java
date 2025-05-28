@@ -1,4 +1,4 @@
-package spring1.web1.demo;
+package spring.web.api;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,17 +8,18 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
-import spring1.web1.demo.repository.ClientRepository;
-import spring1.web1.demo.services.RedisDetailsConfig;
+
+import spring.web.api.repository.ClientRepository;
+import spring.web.api.services.RedisDetailsConfig;
 
 @SpringBootApplication
 @EnableFeignClients
 @EnableConfigurationProperties(value = {RedisDetailsConfig.class})
-public class DemoApplication {
+public class Application {
 
 	public static void main(String[] args) {
 
-		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 
 		//var jdbcTemplate = context.getBean("JdbcTemplate", JdbcTemplate.class)
 		//String scriptContent = StreamUtils.copyToString(scriptResource.getInputStream(), StandardCharsets.UTF_8);

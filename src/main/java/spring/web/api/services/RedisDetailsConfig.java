@@ -1,4 +1,4 @@
-package spring1.web1.demo.services;
+package spring.web.api.services;
 
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
