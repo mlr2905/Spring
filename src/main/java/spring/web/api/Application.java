@@ -15,11 +15,11 @@ import spring.web.api.service.RedisDetailsConfig;
 @SpringBootApplication
 @EnableFeignClients
 @EnableConfigurationProperties(value = {RedisDetailsConfig.class})
-public class DemoApplication {
+public class Application {
 
 	public static void main(String[] args) {
 
-		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
 
 		//var jdbcTemplate = context.getBean("JdbcTemplate", JdbcTemplate.class)
 		//String scriptContent = StreamUtils.copyToString(scriptResource.getInputStream(), StandardCharsets.UTF_8);
