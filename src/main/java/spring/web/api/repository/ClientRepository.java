@@ -1,6 +1,9 @@
-package spring1.web1.demo.repository;
+package spring.web.api.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import spring.web.api.model.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,7 +12,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import spring1.web1.demo.model.*;
+
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;

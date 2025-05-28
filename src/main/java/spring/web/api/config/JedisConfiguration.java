@@ -1,10 +1,10 @@
-package spring1.web1.demo.configs;
+package spring.web.api.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPooled;
-import spring1.web1.demo.services.RedisDetailsConfig;
+import spring.web.api.service.RedisDetailsConfig;
 
 @Configuration
 public class JedisConfiguration {

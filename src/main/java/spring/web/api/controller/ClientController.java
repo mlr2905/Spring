@@ -1,14 +1,16 @@
-package spring1.web1.demo.controller;
+package spring.web.api.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import spring.web.api.model.Client;
+import spring.web.api.model.ClientFaultException;
+import spring.web.api.service.ClientService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import spring1.web1.demo.model.ClientFaultException;
-import spring1.web1.demo.model.Client;
-import spring1.web1.demo.services.ClientService;
 
 import java.util.List;
 

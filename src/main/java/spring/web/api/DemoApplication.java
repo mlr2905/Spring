@@ -1,4 +1,4 @@
-package spring1.web1.demo;
+package spring.web.api;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,8 +8,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
-import spring1.web1.demo.repository.ClientRepository;
-import spring1.web1.demo.services.RedisDetailsConfig;
+
+import spring.web.api.repository.ClientRepository;
+import spring.web.api.service.RedisDetailsConfig;
 
 @SpringBootApplication
 @EnableFeignClients

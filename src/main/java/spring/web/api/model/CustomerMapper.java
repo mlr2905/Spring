@@ -1,4 +1,4 @@
-package spring1.web1.demo.model;
+package spring.web.api.model;
 
 public class CustomerMapper {
     

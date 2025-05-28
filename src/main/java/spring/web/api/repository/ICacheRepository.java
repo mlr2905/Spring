@@ -1,4 +1,4 @@
-package spring1.web1.demo.repository;
+package spring.web.api.repository;
 
 public interface ICacheRepository {
 
