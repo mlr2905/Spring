@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPooled;
-import spring.web.api.service.RedisDetailsConfig;
+import spring1.web1.demo.services.RedisDetailsConfig;
 
 @Configuration
 public class JedisConfiguration {

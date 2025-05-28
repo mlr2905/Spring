@@ -8,15 +8,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import spring.web.api.repository.ClientRepository;
-import spring.web.api.service.RedisDetailsConfig;
-
-@SpringBootApplication
-@EnableFeignClients
-@EnableConfigurationProperties(value = { RedisDetailsConfig.class })
-public class Application {
-========
 import spring1.web1.demo.repository.ClientRepository;
 import spring1.web1.demo.services.RedisDetailsConfig;
 
@@ -24,22 +15,19 @@ import spring1.web1.demo.services.RedisDetailsConfig;
 @EnableFeignClients
 @EnableConfigurationProperties(value = {RedisDetailsConfig.class})
 public class DemoApplication {
->>>>>>>> parent of ae478a0 (Change project name):src/main/java/spring1/web1/demo/DemoApplication.java
 
 	public static void main(String[] args) {
 
 		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
 
-		// var jdbcTemplate = context.getBean("JdbcTemplate", JdbcTemplate.class)
-		// String scriptContent =
-		// StreamUtils.copyToString(scriptResource.getInputStream(),
-		// StandardCharsets.UTF_8);
-		// jdbcTemplate.execute(scriptContent);
+		//var jdbcTemplate = context.getBean("JdbcTemplate", JdbcTemplate.class)
+		//String scriptContent = StreamUtils.copyToString(scriptResource.getInputStream(), StandardCharsets.UTF_8);
+		//jdbcTemplate.execute(scriptContent);
 	}
 
 	@Bean
 	CommandLineRunner commandLineRunner(JdbcTemplate jdbcTemplate, ClientRepository clientRepository) {
 		return args -> {
-		};
+			 };
 	}
 }

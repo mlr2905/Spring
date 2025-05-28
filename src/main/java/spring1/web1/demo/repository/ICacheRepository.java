@@ -11,4 +11,5 @@ public interface ICacheRepository {
     Boolean isKeyExist(String key);
 
     void removeKey(String key);
+
 }

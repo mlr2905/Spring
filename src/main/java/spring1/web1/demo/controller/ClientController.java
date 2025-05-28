@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import spring1.web1.demo.model.ClientFaultException;
 import spring1.web1.demo.model.Client;
 import spring1.web1.demo.services.ClientService;
+
 import java.util.List;
 
 @RestController
@@ -20,6 +21,7 @@ public class ClientController {
 
     @Autowired
     ObjectMapper objectMapper;
+
 
     @GetMapping
     public List<Client> get()
@@ -45,6 +47,7 @@ public class ClientController {
             System.out.println(client);
             System.out.println("client");
 
+           
             Client resultClient = clientService.createClient(client);
 
             return new ResponseEntity<Client>(resultClient, HttpStatus.CREATED);
@@ -57,6 +60,8 @@ public class ClientController {
         catch (Exception e) {
             return new ResponseEntity<String>(String.format("{ Error: '%s' }", e.toString()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        
     }
 
     @PutMapping(value = "/{id}")
@@ -70,4 +75,9 @@ public class ClientController {
     {
         clientService.deleteClient(id);
     }
+
+
+   
+
+
 }
